@@ -16,6 +16,18 @@ class CustomUser extends BaseObject implements IdentityInterface
   public $accessToken;
   public $created_at;
   public $updated_at;
+
+  public static function fetchAll()
+  {
+    $users = User::find()->all();
+
+    $result = [];
+    foreach ($users as $user) {
+      $result[] = new static($user);
+    }
+    return $result;
+  }
+
   /**
    * {@inheritdoc}
    */

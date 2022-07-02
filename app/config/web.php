@@ -59,6 +59,7 @@ $config = [
                 'hello' => 'hello/index',
                 'auth' => 'auth/index',
                 'auth/login' => 'auth/login',
+                'users' => 'user/index',
             ],
         ],
     ],
