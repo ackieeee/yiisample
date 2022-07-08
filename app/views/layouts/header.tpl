@@ -1,4 +1,4 @@
-<header class="navbar navbar-expand-md navbar-dark bg-dark fixed-top p-3">
+<header class="navbar navbar-expand-md navbar-dark bg-dark fixed-top p-2 cms_header">
   <div class="d-flex justify-content-between" style="width: 100%;">
     <h2 class="fs-4" style="color: white;">Admin</h2>
     <div>

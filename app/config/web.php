@@ -60,6 +60,8 @@ $config = [
                 'auth' => 'auth/index',
                 'auth/login' => 'auth/login',
                 'users' => 'user/index',
+                'users/<id:\d+>/update' => 'user/update',
+                'users/<id:\d+>/delete' => 'user/delete',
             ],
         ],
     ],
