@@ -21,7 +21,7 @@ class CustomUser extends BaseObject implements IdentityInterface
     {
         $users = User::find()
             ->where(['like', 'name', $name])
-            ->where(['like', 'email', $email])
+            ->andWhere(['like', 'email', $email])
             ->all();
 
         $result = [];
