@@ -8,27 +8,33 @@ use yii\web\Controller;
 
 class AuthController extends Controller
 {
-  public function actionIndex()
-  {
-    $form = new LoginForm();
-    return $this->render('login.tpl', [
-      'form' => $form,
-    ]);
-  }
+    public function actionIndex()
+    {
+        $model = new LoginForm();
+        return $this->render('login', [
+          'model' => $model,
+        ]);
+    }
 
-  public function actionLogin()
-  {
-    $form = new LoginForm();
-    if (!Yii::$app->request->isPost) {
-      return $this->render('../hello/hello.tpl');
+    public function actionLogin()
+    {
+        $form = new LoginForm();
+        $request = Yii::$app->request;
+        if (!$request->isPost) {
+          return $this->render('failed');
+        }
+
+        $form->attributes = $request->post('LoginForm');
+        if ($form->login()) {
+          return $this->render('success');
+        }
+        return $this->render('failed');
     }
-    $form->attributes = Yii::$app->request->post();
-    // var_dump(Yii::$app->request->post());
-    // var_dump($form);
-    // exit(1);
-    if ($form->login()) {
-      return $this->render('success.tpl');
+
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+        return $this->goHome();
     }
-    return $this->render('failed.tpl');
-  }
+
 }

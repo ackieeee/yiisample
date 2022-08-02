@@ -21,7 +21,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\models\CustomUser',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
@@ -44,14 +44,14 @@ $config = [
             ],
         ],
         'db' => $db,
-        'view' => [
-            'defaultExtension' => 'tpl',
-            'renderers' => [
-                'tpl' => [
-                    'class' => 'yii\smarty\ViewRenderer',
-                ]
-            ]
-        ],
+        // 'view' => [
+        //     'defaultExtension' => 'tpl',
+        //     'renderers' => [
+        //         'tpl' => [
+        //             'class' => 'yii\smarty\ViewRenderer',
+        //         ]
+        //     ]
+        // ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
@@ -59,9 +59,13 @@ $config = [
                 'hello' => 'hello/index',
                 'auth' => 'auth/index',
                 'auth/login' => 'auth/login',
+                'auth/logout' => 'auth/logout',
                 'users' => 'user/index',
                 'users/<id:\d+>/update' => 'user/update',
                 'users/<id:\d+>/delete' => 'user/delete',
+                '<controller:\w>' => '<controller>/index',
+                'article/<id:\d+>' => 'article/view',
+                'article/<id:\d+>/update' => 'article/update',
             ],
         ],
     ],

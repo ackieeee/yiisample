@@ -2,7 +2,6 @@
 
 namespace app\models\forms;
 
-use app\models\CustomUser;
 use app\models\db\User;
 use yii\base\Model;
 

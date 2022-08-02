@@ -7,9 +7,30 @@ use app\models\db\User;
 use app\models\forms\UserForm;
 use yii\web\Controller;
 use Yii;
+use yii\filters\AccessControl;
 
 class UserController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    // ログインしているユーザーのみユーザー一覧を閲覧可能
+                    [
+                        'allow' => true,
+                        'actions' => ['index'],
+                        'roles' => ['@'],
+                    ]
+                ],
+                'denyCallback' => function ($rule, $action) {
+                    $this->redirect('/auth');
+                }
+            ]
+        ];
+    }
+
     public function actionIndex()
     {
         $request = Yii::$app->request;
@@ -17,7 +38,7 @@ class UserController extends Controller
         $email = $request->get('email') !== null ? $request->get('email') : '';
 
         $users = CustomUser::fetchAll($name, $email);
-        return $this->render('index.tpl', [
+        return $this->render('index', [
             'users' => $users,
         ]);
     }
@@ -28,7 +49,7 @@ class UserController extends Controller
         $id = $request->get('id');
         if ($request->isGet) {
             $user = CustomUser::findIdentity($id);
-            return $this->render('update.tpl', [
+            return $this->render('update', [
                 'user' => $user,
             ]);
         }
@@ -38,7 +59,9 @@ class UserController extends Controller
             try {
                 $form->updateUser($id);
             } catch (\Exception $e) {
-                return $this->redirect('/users');
+                return $this->redirect('/users', [
+                    "failed_flag" => true
+                ]);
             }
         }
         return $this->redirect('/users');

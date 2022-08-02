@@ -34,3 +34,12 @@ services:
     volumes:
       - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
       - ./database:/docker-entrypoint-initdb.d
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    environment:
+      - TZ=Asia/Tokyo
+      - PMA_HOST=db
+      - PMA_USER=yii
+      - PMA_PASSWORD=yii
+    ports:
+      - 4040:80

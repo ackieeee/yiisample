@@ -10,8 +10,14 @@ class LoginForm extends Model
 {
     public string $username = "";
     public string $password = "";
+    public $rememberMe;
 
     private $_user = false;
+
+    public function __construct()
+    {
+        $this->rememberMe = false;
+    }
 
     public function rules()
     {
@@ -32,8 +38,9 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), 3600 * 24 * 30);
+            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         }
+
         return false;
     }
 
